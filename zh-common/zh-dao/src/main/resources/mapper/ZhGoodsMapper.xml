@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.ZhGoodsMapper">
+
+    <select id="getZhGoodsById" resultType="com.zb.pojo.ZhGoods">
+        select
+                id as id,
+                price as price,
+                brand as brand,
+                model as model,
+                condition as condition,
+                origin as origin,
+                year as year,
+                standards as standards,
+                num as num,
+                address as address,
+                location as location,
+                pic as pic,
+                video as video,
+                createtime as createtime,
+                collection as collection,
+                browse as browse,
+                totalBrowse as totalBrowse,
+                totalCollection as totalCollection,
+                lable as lable,
+                status as status
+        from zh_goods
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getZhGoodsListByMap" resultType="com.zb.pojo.ZhGoods" parameterType="java.util.Map">
+        select
+                id as id,
+                price as price,
+                brand as brand,
+                model as model,
+                condition as condition,
+                origin as origin,
+                year as year,
+                standards as standards,
+                num as num,
+                address as address,
+                location as location,
+                pic as pic,
+                video as video,
+                createtime as createtime,
+                collection as collection,
+                browse as browse,
+                totalBrowse as totalBrowse,
+                totalCollection as totalCollection,
+                lable as lable,
+                status as status
+        from zh_goods
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="price != null and price!=''">
+                    and price=#{price}
+                </if>
+                <if test="brand != null and brand!=''">
+                    and brand=#{brand}
+                </if>
+                <if test="model != null and model!=''">
+                    and model=#{model}
+                </if>
+                <if test="condition != null and condition!=''">
+                    and condition=#{condition}
+                </if>
+                <if test="origin != null and origin!=''">
+                    and origin=#{origin}
+                </if>
+                <if test="year != null and year!=''">
+                    and year=#{year}
+                </if>
+                <if test="standards != null and standards!=''">
+                    and standards=#{standards}
+                </if>
+                <if test="num != null and num!=''">
+                    and num=#{num}
+                </if>
+                <if test="address != null and address!=''">
+                    and address=#{address}
+                </if>
+                <if test="location != null and location!=''">
+                    and location=#{location}
+                </if>
+                <if test="pic != null and pic!=''">
+                    and pic=#{pic}
+                </if>
+                <if test="video != null and video!=''">
+                    and video=#{video}
+                </if>
+                <if test="createtime != null and createtime!=''">
+                    and createtime=#{createtime}
+                </if>
+                <if test="collection != null and collection!=''">
+                    and collection=#{collection}
+                </if>
+                <if test="browse != null and browse!=''">
+                    and browse=#{browse}
+                </if>
+                <if test="totalBrowse != null and totalBrowse!=''">
+                    and totalBrowse=#{totalBrowse}
+                </if>
+                <if test="totalCollection != null and totalCollection!=''">
+                    and totalCollection=#{totalCollection}
+                </if>
+                <if test="lable != null and lable!=''">
+                    and lable=#{lable}
+                </if>
+                <if test="status != null and status!=''">
+                    and status=#{status}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getZhGoodsCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from zh_goods
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="price != null and price!=''">
+                    and price=#{price}
+                </if>
+                <if test="brand != null and brand!=''">
+                    and brand=#{brand}
+                </if>
+                <if test="model != null and model!=''">
+                    and model=#{model}
+                </if>
+                <if test="condition != null and condition!=''">
+                    and condition=#{condition}
+                </if>
+                <if test="origin != null and origin!=''">
+                    and origin=#{origin}
+                </if>
+                <if test="year != null and year!=''">
+                    and year=#{year}
+                </if>
+                <if test="standards != null and standards!=''">
+                    and standards=#{standards}
+                </if>
+                <if test="num != null and num!=''">
+                    and num=#{num}
+                </if>
+                <if test="address != null and address!=''">
+                    and address=#{address}
+                </if>
+                <if test="location != null and location!=''">
+                    and location=#{location}
+                </if>
+                <if test="pic != null and pic!=''">
+                    and pic=#{pic}
+                </if>
+                <if test="video != null and video!=''">
+                    and video=#{video}
+                </if>
+                <if test="createtime != null and createtime!=''">
+                    and createtime=#{createtime}
+                </if>
+                <if test="collection != null and collection!=''">
+                    and collection=#{collection}
+                </if>
+                <if test="browse != null and browse!=''">
+                    and browse=#{browse}
+                </if>
+                <if test="totalBrowse != null and totalBrowse!=''">
+                    and totalBrowse=#{totalBrowse}
+                </if>
+                <if test="totalCollection != null and totalCollection!=''">
+                    and totalCollection=#{totalCollection}
+                </if>
+                <if test="lable != null and lable!=''">
+                    and lable=#{lable}
+                </if>
+                <if test="status != null and status!=''">
+                    and status=#{status}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertZhGoods" parameterType="com.zb.pojo.ZhGoods">
+        insert into zh_goods(
+                        price,
+                        brand,
+                        model,
+                        condition,
+                        origin,
+                        year,
+                        standards,
+                        num,
+                        address,
+                        location,
+                        pic,
+                        video,
+                        createtime,
+                        collection,
+                        browse,
+                        totalBrowse,
+                        totalCollection,
+                        lable,
+                        status)
+        values(
+                     #{price},
+                     #{brand},
+                     #{model},
+                     #{condition},
+                     #{origin},
+                     #{year},
+                     #{standards},
+                     #{num},
+                     #{address},
+                     #{location},
+                     #{pic},
+                     #{video},
+                     #{createtime},
+                     #{collection},
+                     #{browse},
+                     #{totalBrowse},
+                     #{totalCollection},
+                     #{lable},
+                    #{status})
+    </insert>
+
+    <update id="updateZhGoods" parameterType="com.zb.pojo.ZhGoods">
+        update zh_goods
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="price != null and price!=''">
+                            price=#{price},
+                        </if>
+                        <if test="brand != null and brand!=''">
+                            brand=#{brand},
+                        </if>
+                        <if test="model != null and model!=''">
+                            model=#{model},
+                        </if>
+                        <if test="condition != null and condition!=''">
+                            condition=#{condition},
+                        </if>
+                        <if test="origin != null and origin!=''">
+                            origin=#{origin},
+                        </if>
+                        <if test="year != null and year!=''">
+                            year=#{year},
+                        </if>
+                        <if test="standards != null and standards!=''">
+                            standards=#{standards},
+                        </if>
+                        <if test="num != null and num!=''">
+                            num=#{num},
+                        </if>
+                        <if test="address != null and address!=''">
+                            address=#{address},
+                        </if>
+                        <if test="location != null and location!=''">
+                            location=#{location},
+                        </if>
+                        <if test="pic != null and pic!=''">
+                            pic=#{pic},
+                        </if>
+                        <if test="video != null and video!=''">
+                            video=#{video},
+                        </if>
+                        <if test="createtime != null and createtime!=''">
+                            createtime=#{createtime},
+                        </if>
+                        <if test="collection != null and collection!=''">
+                            collection=#{collection},
+                        </if>
+                        <if test="browse != null and browse!=''">
+                            browse=#{browse},
+                        </if>
+                        <if test="totalBrowse != null and totalBrowse!=''">
+                            totalBrowse=#{totalBrowse},
+                        </if>
+                        <if test="totalCollection != null and totalCollection!=''">
+                            totalCollection=#{totalCollection},
+                        </if>
+                        <if test="lable != null and lable!=''">
+                            lable=#{lable},
+                        </if>
+                        <if test="status != null and status!=''">
+                            status=#{status}
+                        </if>
+        </trim>
+    </update>
+</mapper>

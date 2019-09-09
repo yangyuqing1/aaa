@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.ZhEvaluationMapper">
+
+    <select id="getZhEvaluationById" resultType="com.zb.pojo.ZhEvaluation">
+        select
+                id as id,
+                goodsName as goodsName,
+                goodsBrand as goodsBrand,
+                goodsYear as goodsYear,
+                goodsModel as goodsModel,
+                userId as userId
+        from zh_evaluation
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getZhEvaluationListByMap" resultType="com.zb.pojo.ZhEvaluation" parameterType="java.util.Map">
+        select
+                id as id,
+                goodsName as goodsName,
+                goodsBrand as goodsBrand,
+                goodsYear as goodsYear,
+                goodsModel as goodsModel,
+                userId as userId
+        from zh_evaluation
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="goodsName != null and goodsName!=''">
+                    and goodsName=#{goodsName}
+                </if>
+                <if test="goodsBrand != null and goodsBrand!=''">
+                    and goodsBrand=#{goodsBrand}
+                </if>
+                <if test="goodsYear != null and goodsYear!=''">
+                    and goodsYear=#{goodsYear}
+                </if>
+                <if test="goodsModel != null and goodsModel!=''">
+                    and goodsModel=#{goodsModel}
+                </if>
+                <if test="userId != null and userId!=''">
+                    and userId=#{userId}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getZhEvaluationCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from zh_evaluation
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="goodsName != null and goodsName!=''">
+                    and goodsName=#{goodsName}
+                </if>
+                <if test="goodsBrand != null and goodsBrand!=''">
+                    and goodsBrand=#{goodsBrand}
+                </if>
+                <if test="goodsYear != null and goodsYear!=''">
+                    and goodsYear=#{goodsYear}
+                </if>
+                <if test="goodsModel != null and goodsModel!=''">
+                    and goodsModel=#{goodsModel}
+                </if>
+                <if test="userId != null and userId!=''">
+                    and userId=#{userId}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertZhEvaluation" parameterType="com.zb.pojo.ZhEvaluation">
+        insert into zh_evaluation(
+                        goodsName,
+                        goodsBrand,
+                        goodsYear,
+                        goodsModel,
+                        userId)
+        values(
+                     #{goodsName},
+                     #{goodsBrand},
+                     #{goodsYear},
+                     #{goodsModel},
+                    #{userId})
+    </insert>
+
+    <update id="updateZhEvaluation" parameterType="com.zb.pojo.ZhEvaluation">
+        update zh_evaluation
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="goodsName != null and goodsName!=''">
+                            goodsName=#{goodsName},
+                        </if>
+                        <if test="goodsBrand != null and goodsBrand!=''">
+                            goodsBrand=#{goodsBrand},
+                        </if>
+                        <if test="goodsYear != null and goodsYear!=''">
+                            goodsYear=#{goodsYear},
+                        </if>
+                        <if test="goodsModel != null and goodsModel!=''">
+                            goodsModel=#{goodsModel},
+                        </if>
+                        <if test="userId != null and userId!=''">
+                            userId=#{userId}
+                        </if>
+        </trim>
+    </update>
+</mapper>

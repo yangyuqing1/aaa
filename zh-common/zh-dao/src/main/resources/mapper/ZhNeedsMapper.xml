@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.ZhNeedsMapper">
+
+    <select id="getZhNeedsById" resultType="com.zb.pojo.ZhNeeds">
+        select
+                id as id,
+                userId as userId,
+                goodsName as goodsName,
+                goodsBrand as goodsBrand,
+                goodsYear as goodsYear,
+                goodsModel as goodsModel,
+                goodsPrice as goodsPrice
+        from zh_needs
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getZhNeedsListByMap" resultType="com.zb.pojo.ZhNeeds" parameterType="java.util.Map">
+        select
+                id as id,
+                userId as userId,
+                goodsName as goodsName,
+                goodsBrand as goodsBrand,
+                goodsYear as goodsYear,
+                goodsModel as goodsModel,
+                goodsPrice as goodsPrice
+        from zh_needs
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="userId != null and userId!=''">
+                    and userId=#{userId}
+                </if>
+                <if test="goodsName != null and goodsName!=''">
+                    and goodsName=#{goodsName}
+                </if>
+                <if test="goodsBrand != null and goodsBrand!=''">
+                    and goodsBrand=#{goodsBrand}
+                </if>
+                <if test="goodsYear != null and goodsYear!=''">
+                    and goodsYear=#{goodsYear}
+                </if>
+                <if test="goodsModel != null and goodsModel!=''">
+                    and goodsModel=#{goodsModel}
+                </if>
+                <if test="goodsPrice != null and goodsPrice!=''">
+                    and goodsPrice=#{goodsPrice}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getZhNeedsCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from zh_needs
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="userId != null and userId!=''">
+                    and userId=#{userId}
+                </if>
+                <if test="goodsName != null and goodsName!=''">
+                    and goodsName=#{goodsName}
+                </if>
+                <if test="goodsBrand != null and goodsBrand!=''">
+                    and goodsBrand=#{goodsBrand}
+                </if>
+                <if test="goodsYear != null and goodsYear!=''">
+                    and goodsYear=#{goodsYear}
+                </if>
+                <if test="goodsModel != null and goodsModel!=''">
+                    and goodsModel=#{goodsModel}
+                </if>
+                <if test="goodsPrice != null and goodsPrice!=''">
+                    and goodsPrice=#{goodsPrice}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertZhNeeds" parameterType="com.zb.pojo.ZhNeeds">
+        insert into zh_needs(
+                        userId,
+                        goodsName,
+                        goodsBrand,
+                        goodsYear,
+                        goodsModel,
+                        goodsPrice)
+        values(
+                     #{userId},
+                     #{goodsName},
+                     #{goodsBrand},
+                     #{goodsYear},
+                     #{goodsModel},
+                    #{goodsPrice})
+    </insert>
+
+    <update id="updateZhNeeds" parameterType="com.zb.pojo.ZhNeeds">
+        update zh_needs
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="userId != null and userId!=''">
+                            userId=#{userId},
+                        </if>
+                        <if test="goodsName != null and goodsName!=''">
+                            goodsName=#{goodsName},
+                        </if>
+                        <if test="goodsBrand != null and goodsBrand!=''">
+                            goodsBrand=#{goodsBrand},
+                        </if>
+                        <if test="goodsYear != null and goodsYear!=''">
+                            goodsYear=#{goodsYear},
+                        </if>
+                        <if test="goodsModel != null and goodsModel!=''">
+                            goodsModel=#{goodsModel},
+                        </if>
+                        <if test="goodsPrice != null and goodsPrice!=''">
+                            goodsPrice=#{goodsPrice}
+                        </if>
+        </trim>
+    </update>
+</mapper>

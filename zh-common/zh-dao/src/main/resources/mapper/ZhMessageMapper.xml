@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.ZhMessageMapper">
+
+    <select id="getZhMessageById" resultType="com.zb.pojo.ZhMessage">
+        select
+                id as id,
+                content as content,
+                name as name,
+                phone as phone,
+                createtime as createtime
+        from zh_message
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getZhMessageListByMap" resultType="com.zb.pojo.ZhMessage" parameterType="java.util.Map">
+        select
+                id as id,
+                content as content,
+                name as name,
+                phone as phone,
+                createtime as createtime
+        from zh_message
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="content != null and content!=''">
+                    and content=#{content}
+                </if>
+                <if test="name != null and name!=''">
+                    and name=#{name}
+                </if>
+                <if test="phone != null and phone!=''">
+                    and phone=#{phone}
+                </if>
+                <if test="createtime != null and createtime!=''">
+                    and createtime=#{createtime}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getZhMessageCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from zh_message
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=#{id}
+                </if>
+                <if test="content != null and content!=''">
+                    and content=#{content}
+                </if>
+                <if test="name != null and name!=''">
+                    and name=#{name}
+                </if>
+                <if test="phone != null and phone!=''">
+                    and phone=#{phone}
+                </if>
+                <if test="createtime != null and createtime!=''">
+                    and createtime=#{createtime}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertZhMessage" parameterType="com.zb.pojo.ZhMessage">
+        insert into zh_message(
+                        content,
+                        name,
+                        phone,
+                        createtime)
+        values(
+                     #{content},
+                     #{name},
+                     #{phone},
+                    #{createtime})
+    </insert>
+
+    <update id="updateZhMessage" parameterType="com.zb.pojo.ZhMessage">
+        update zh_message
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="content != null and content!=''">
+                            content=#{content},
+                        </if>
+                        <if test="name != null and name!=''">
+                            name=#{name},
+                        </if>
+                        <if test="phone != null and phone!=''">
+                            phone=#{phone},
+                        </if>
+                        <if test="createtime != null and createtime!=''">
+                            createtime=#{createtime}
+                        </if>
+        </trim>
+    </update>
+</mapper>

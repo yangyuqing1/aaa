@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.ZhNewsMapper">
+
+    <select id="getZhNewsById" resultType="com.zb.pojo.ZhNews">
+        select
+                newsId as newsId,
+                content as content,
+                newsType as newsType,
+                newsTime as newsTime,
+                pic as pic
+        from zh_news
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getZhNewsListByMap" resultType="com.zb.pojo.ZhNews" parameterType="java.util.Map">
+        select
+                newsId as newsId,
+                content as content,
+                newsType as newsType,
+                newsTime as newsTime,
+                pic as pic
+        from zh_news
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="newsId != null and newsId!=''">
+                    and newsId=#{newsId}
+                </if>
+                <if test="content != null and content!=''">
+                    and content=#{content}
+                </if>
+                <if test="newsType != null and newsType!=''">
+                    and newsType=#{newsType}
+                </if>
+                <if test="newsTime != null and newsTime!=''">
+                    and newsTime=#{newsTime}
+                </if>
+                <if test="pic != null and pic!=''">
+                    and pic=#{pic}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getZhNewsCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from zh_news
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="newsId != null and newsId!=''">
+                    and newsId=#{newsId}
+                </if>
+                <if test="content != null and content!=''">
+                    and content=#{content}
+                </if>
+                <if test="newsType != null and newsType!=''">
+                    and newsType=#{newsType}
+                </if>
+                <if test="newsTime != null and newsTime!=''">
+                    and newsTime=#{newsTime}
+                </if>
+                <if test="pic != null and pic!=''">
+                    and pic=#{pic}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertZhNews" parameterType="com.zb.pojo.ZhNews">
+        insert into zh_news(
+                        newsId,
+                        content,
+                        newsType,
+                        newsTime,
+                        pic)
+        values(
+                     #{newsId},
+                     #{content},
+                     #{newsType},
+                     #{newsTime},
+                    #{pic})
+    </insert>
+
+    <update id="updateZhNews" parameterType="com.zb.pojo.ZhNews">
+        update zh_news
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="newsId != null and newsId!=''">
+                            newsId=#{newsId},
+                        </if>
+                        <if test="content != null and content!=''">
+                            content=#{content},
+                        </if>
+                        <if test="newsType != null and newsType!=''">
+                            newsType=#{newsType},
+                        </if>
+                        <if test="newsTime != null and newsTime!=''">
+                            newsTime=#{newsTime},
+                        </if>
+                        <if test="pic != null and pic!=''">
+                            pic=#{pic}
+                        </if>
+        </trim>
+    </update>
+</mapper>
